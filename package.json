@@ -1,0 +1,8 @@
+{
+  "name": "creative-homeopathy-decoder",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Creative Homeopathy Decoder – a Frequency Tool Suite tool by High Vibrancy Living",
+  "type": "module",
+  "engines": { "node": ">=18" }
+}

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Creative Homeopathy Decoder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root {
+  /* High Vibrancy Living palette, taken from frequencytoolkit.com */
+  --bg: #FBF7EF;
+  --surface: #FFFFFF;
+  --ink: #2B2733;
+  --muted: #6B6573;
+  --violet: #6B5BD6;
+  --violet-ink: #4A3DB0;
+  --soft: #EFEAFA;
+  --mid: #DCD3F5;
+  --border: #EDE4D2;
+  --deep: #2D2750;
+  --warn: #8A4B12;
+  --display: "Cormorant Garamond", Georgia, serif;
+  --body: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Layout: form on the left, the decoded reading on the right; one column on phones */
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+a { color: var(--violet-ink); }
+a:hover { color: var(--violet); }
+:focus-visible { outline: 2px solid var(--violet); outline-offset: 2px; border-radius: 6px; }
+
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+header.top { padding: 28px 0 0; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+.brand img { width: 44px; height: 44px; object-fit: contain; }
+.brand span { font-size: 12px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--muted); }
+
+.hero { padding: 40px 0 28px; max-width: 720px; }
+.kicker { margin: 0; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--violet-ink); }
+h1 { margin: 10px 0 0; font-family: var(--display); font-weight: 500; font-size: clamp(2.4rem, 5vw, 3.4rem); line-height: 1.05; text-wrap: balance; }
+h1 em { color: var(--violet-ink); }
+.hero p { margin: 14px 0 0; color: var(--muted); font-size: 17px; max-width: 60ch; }
+
+.grid { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; padding-bottom: 72px; }
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 26px; }
+form.panel { flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 18px; }
+.results { flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+
+h2 { margin: 0; font-family: var(--display); font-weight: 500; font-size: 1.7rem; line-height: 1.15; text-wrap: balance; }
+.hint { margin: 0; font-size: 14px; color: var(--muted); }
+fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+legend { padding: 0; margin-bottom: 6px; font-weight: 600; font-size: 14px; }
+.row { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; align-items: start; }
+.num { width: 28px; height: 28px; border-radius: 14px; background: var(--soft); color: var(--violet-ink); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; margin-top: 8px; }
+.pair { display: flex; flex-direction: column; gap: 6px; }
+label.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+input[type=text], textarea {
+  width: 100%; font: inherit; font-size: 15px; color: var(--ink); background: var(--bg);
+  border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px;
+}
+input[type=text]::placeholder, textarea::placeholder { color: #8E8796; }
+input.remedy { font-weight: 500; }
+textarea { min-height: 84px; resize: vertical; }
+.lbl { font-weight: 600; font-size: 14px; display: block; margin-bottom: 6px; }
+
+.seg { display: inline-flex; background: var(--soft); border-radius: 999px; padding: 4px; gap: 4px; }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink); padding: 8px 16px; min-height: 36px; border-radius: 999px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--violet-ink); font-weight: 600; box-shadow: 0 1px 4px rgba(45,39,80,0.12); }
+
+.actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.btn { font: inherit; font-weight: 500; font-size: 16px; border-radius: 999px; min-height: 48px; padding: 0 24px; cursor: pointer; border: 1px solid var(--violet); }
+.btn.primary { background: var(--violet); color: #FFFFFF; }
+.btn.primary:hover { background: #5A4AC0; }
+.btn.primary[disabled] { opacity: 0.6; cursor: progress; }
+.btn.ghost { background: var(--surface); color: var(--violet-ink); }
+.btn.small { min-height: 38px; font-size: 14px; padding: 0 16px; }
+.error { margin: 0; color: #9B2C2C; font-size: 14px; }
+
+.status { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; letter-spacing: 0.6px; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: var(--soft); color: var(--violet-ink); font-weight: 600; }
+.chip.example { background: #FBEBD9; color: var(--warn); }
+
+.theme { background: var(--deep); color: #FBF7EF; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 10px; }
+.theme .kicker { color: #CFC4F2; }
+.theme h2 { font-size: clamp(1.8rem, 3.4vw, 2.3rem); color: #FFFFFF; }
+.theme p { margin: 0; color: #E4DEF2; font-size: 16px; max-width: 62ch; }
+
+.cards { display: flex; flex-direction: column; gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px; display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 14px; }
+.card .num { margin-top: 2px; width: 32px; height: 32px; border-radius: 16px; }
+.card h3 { margin: 0; font-family: var(--display); font-weight: 600; font-size: 1.35rem; line-height: 1.2; }
+.card .orig { margin: 2px 0 0; font-size: 13px; color: var(--muted); font-style: italic; }
+.card .plain { margin: 8px 0 0; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.tag { font-size: 12.5px; padding: 3px 10px; border-radius: 999px; background: var(--soft); color: var(--violet-ink); }
+.tag.none { background: #F4F1EA; color: var(--muted); }
+.reflect { margin: 10px 0 0; padding-top: 10px; border-top: 1px dashed var(--border); font-size: 15px; }
+.reflect b { color: var(--violet-ink); font-weight: 600; }
+.unsure { margin: 8px 0 0; font-size: 13px; color: var(--warn); }
+
+.two { display: flex; flex-wrap: wrap; gap: 16px; }
+.two > .panel { flex: 1 1 260px; min-width: 0; padding: 22px; display: flex; flex-direction: column; gap: 10px; }
+.two h2 { font-size: 1.4rem; }
+ol.qs { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+.panel p { margin: 0; }
+.next { background: var(--soft); border: 0; }
+
+.disclaimer { font-size: 13px; color: var(--muted); margin: 0; max-width: 70ch; }
+.loading { display: flex; flex-direction: column; gap: 12px; }
+.bar { height: 14px; border-radius: 8px; background: linear-gradient(90deg, var(--soft), var(--mid), var(--soft)); background-size: 200% 100%; animation: shimmer 1.4s linear infinite; }
+@keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .bar { animation: none; } }
+footer.foot { border-top: 1px solid var(--border); padding: 22px 0 40px; }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="https://frequencytoolkit.com"><img src="hvl-logo.png" alt="High Vibrancy Living"><span>Frequency Tool Suite</span></a>
+  </header>
+
+  <section class="hero">
+    <p class="kicker">Frequency Tool Suite · Creative Homeopathy</p>
+    <h1>Creative Homeopathy <em>Decoder</em></h1>
+    <p>Pop in the top 5 results from your Creative Homeopathy scan. You'll get the theme that connects them, what each one means in plain English, the body areas it's traditionally linked with, and one sensible next step.</p>
+  </section>
+
+  <div class="grid">
+    <form class="panel" id="form" novalidate>
+      <div>
+        <h2>Your scan results</h2>
+        <p class="hint">Add the remedy name, the stress pattern, or both. The stress pattern is the line under each remedy in the Healy app.</p>
+      </div>
+
+      <fieldset id="rows">
+        <legend>Top 5 results</legend>
+      </fieldset>
+
+      <div>
+        <label class="lbl" for="context">What's going on for you right now? <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+        <textarea id="context" placeholder="e.g. hives that flare around my cycle, feeling stretched thin looking after everyone"></textarea>
+      </div>
+
+      <div>
+        <span class="lbl" id="forlabel">Who is this reading for?</span>
+        <div class="seg" role="group" aria-labelledby="forlabel">
+          <button type="button" id="for-me" aria-pressed="true">Me</button>
+          <button type="button" id="for-client" aria-pressed="false">A client</button>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" type="submit" id="go">Decode my results</button>
+        <button class="btn ghost small" type="button" id="clear">Clear</button>
+      </div>
+      <p class="error" id="err" hidden></p>
+      <p class="hint">Please don't include names or anything that could identify you or a client.</p>
+    </form>
+
+    <section class="results" id="results" aria-live="polite">
+      <!-- filled by script -->
+    </section>
+  </div>
+
+  <footer class="foot">
+    <p class="disclaimer">This tool is for education and personal reflection within the Healy framework. It doesn't diagnose, treat, cure or prevent any medical condition, and isn't a substitute for professional care. Readings are generated by AI and can be wrong. Healy is a trademark of its owner; this tool is independent and not affiliated with Healy World. © 2026 High Vibrancy Living.</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  const EXAMPLE_ROWS = [
+    { remedy: "Bromium", pattern: "The urge to help, distracting from one's own suffering" },
+    { remedy: "", pattern: "Disconnected from wholeness, pain of separation" },
+    { remedy: "", pattern: "Showing no feelings" },
+    { remedy: "", pattern: "Used to being the fifth wheel" },
+    { remedy: "", pattern: "Withdrawal out of insecurity" }
+  ];
+  const EXAMPLE_CONTEXT = "Hives that keep coming up around my cycle since having my baby. Busy looking after everyone.";
+
+  const EXAMPLE_RESULT = {
+    theme_title: "Giving outward, holding back inward",
+    theme_summary: "Together these results point to a pattern of focusing on everyone else while your own feelings stay tucked away. There's a thread of not quite belonging, and of pulling back when you feel unsure, which can leave you feeling separate even when you're surrounded by people.",
+    remedies: [
+      { name: "Bromium", pattern: "The urge to help, distracting from one's own suffering", plain: "Keeping busy helping others so you don't have to look at your own pain.", body_areas: ["Respiratory system", "Glands and thyroid", "Skin"], reflection: "Where are you so busy caring for others that your own needs go unmet?", confidence: "high" },
+      { name: "", pattern: "Disconnected from wholeness, pain of separation", plain: "Feeling cut off from yourself or from others, and the quiet ache that comes with it.", body_areas: [], reflection: "When did you first start to feel on the outside?", confidence: "high" },
+      { name: "", pattern: "Showing no feelings", plain: "Keeping emotions hidden to stay safe, strong or in control.", body_areas: [], reflection: "Which feeling have you been holding back lately?", confidence: "high" },
+      { name: "", pattern: "Used to being the fifth wheel", plain: "Expecting to be the extra one, the person who doesn't quite fit in.", body_areas: [], reflection: "Where in your life do you assume there isn't room for you?", confidence: "high" },
+      { name: "", pattern: "Withdrawal out of insecurity", plain: "Pulling back when you feel unsure, rather than risking being seen.", body_areas: [], reflection: "What would you do this week if you weren't afraid of being seen?", confidence: "high" }
+    ],
+    questions: [
+      "If you gave yourself the care you give others, what would change first?",
+      "Where do you feel most like you belong, and how can you spend more time there?",
+      "Your skin may be asking to be noticed. What might it be trying to tell you?"
+    ],
+    routine: "Vibrate these results for about 6 minutes a day, or overnight while you sleep, for the next 7 days. Breathe slowly while it runs, then jot one line in your Scan Journal about anything that comes up. Re-scan next week to see what has shifted.",
+    next_step: "The belonging theme here runs deep. A Healy Power Hour is a good place to look at it together and build a simple plan."
+  };
+
+  const rowsEl = document.getElementById("rows");
+  const form = document.getElementById("form");
+  const ctx = document.getElementById("context");
+  const results = document.getElementById("results");
+  const err = document.getElementById("err");
+  const go = document.getElementById("go");
+  const forMe = document.getElementById("for-me");
+  const forClient = document.getElementById("for-client");
+  let audience = "me";
+  let busy = false;
+
+  // Build the five input rows
+  for (let i = 0; i < 5; i++) {
+    const row = document.createElement("div");
+    row.className = "row";
+    row.innerHTML =
+      '<div class="num" aria-hidden="true">' + (i + 1) + '</div>' +
+      '<div class="pair">' +
+        '<label class="sr" for="rem' + i + '">Result ' + (i + 1) + ' remedy name</label>' +
+        '<input type="text" class="remedy" id="rem' + i + '" placeholder="Remedy name, e.g. Bromium" autocomplete="off">' +
+        '<label class="sr" for="pat' + i + '">Result ' + (i + 1) + ' stress pattern</label>' +
+        '<input type="text" id="pat' + i + '" placeholder="Stress pattern, e.g. Withdrawal out of insecurity" autocomplete="off">' +
+      '</div>';
+    rowsEl.appendChild(row);
+  }
+  function setRows(list) {
+    for (let i = 0; i < 5; i++) {
+      document.getElementById("rem" + i).value = (list[i] && list[i].remedy) || "";
+      document.getElementById("pat" + i).value = (list[i] && list[i].pattern) || "";
+    }
+  }
+  setRows(EXAMPLE_ROWS);
+  ctx.value = EXAMPLE_CONTEXT;
+
+  function setAudience(a) {
+    audience = a;
+    forMe.setAttribute("aria-pressed", String(a === "me"));
+    forClient.setAttribute("aria-pressed", String(a === "client"));
+    go.textContent = a === "me" ? "Decode my results" : "Decode these results";
+  }
+  forMe.addEventListener("click", function () { setAudience("me"); });
+  forClient.addEventListener("click", function () { setAudience("client"); });
+
+  document.getElementById("clear").addEventListener("click", function () {
+    setRows([]); ctx.value = ""; err.hidden = true;
+    document.getElementById("rem0").focus();
+  });
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function render(data, isExample) {
+    const rems = Array.isArray(data.remedies) ? data.remedies : [];
+    const qs = Array.isArray(data.questions) ? data.questions : [];
+    let html = '<div class="status">' +
+      (isExample ? '<span class="chip example">Example reading</span><span>From a real class demo scan. Add your own results to decode them.</span>'
+                 : '<span class="chip">Your reading</span><span>Generated just now</span>') +
+      '<span style="margin-left:auto"></span><button class="btn ghost small" type="button" id="copy">Copy reading</button></div>';
+
+    html += '<div class="theme"><p class="kicker">The theme that connects them</p><h2>' + esc(data.theme_title) + '</h2><p>' + esc(data.theme_summary) + '</p></div>';
+
+    html += '<div class="cards">';
+    rems.forEach(function (r, i) {
+      const title = r.name ? esc(r.name) : esc(r.pattern || "Result " + (i + 1));
+      const orig = r.name && r.pattern ? '<p class="orig">“' + esc(r.pattern) + '”</p>' : "";
+      const areas = Array.isArray(r.body_areas) && r.body_areas.length
+        ? r.body_areas.map(function (a) { return '<span class="tag">' + esc(a) + '</span>'; }).join("")
+        : '<span class="tag none">' + (r.name ? "No clear body links" : "Add the remedy name to see body links") + '</span>';
+      const unsure = r.confidence === "low" ? '<p class="unsure">The AI isn\'t confident about this remedy. Check it against a trusted homeopathy reference.</p>' : "";
+      html += '<article class="card"><div class="num" aria-hidden="true">' + (i + 1) + '</div><div>' +
+        '<h3>' + title + '</h3>' + orig +
+        '<p class="plain">' + esc(r.plain) + '</p>' +
+        '<div class="tags" aria-label="Body areas traditionally linked">' + areas + '</div>' +
+        unsure +
+        '<p class="reflect"><b>Reflect:</b> ' + esc(r.reflection) + '</p>' +
+        '</div></article>';
+    });
+    html += '</div>';
+
+    html += '<div class="two">' +
+      '<div class="panel"><h2>Questions to sit with</h2><ol class="qs">' + qs.map(function (q) { return '<li>' + esc(q) + '</li>'; }).join("") + '</ol></div>' +
+      '<div class="panel"><h2>Suggested routine</h2><p>' + esc(data.routine) + '</p></div>' +
+      '</div>';
+
+    html += '<div class="panel next"><h2>A sensible next step</h2><p style="margin-top:8px">' + esc(data.next_step) + '</p>' +
+      '<div class="actions" style="margin-top:14px"><a class="btn primary small" style="display:inline-flex;align-items:center;text-decoration:none" href="https://frequencytoolkit.com/healy-power-hour">See the Power Hour</a>' +
+      '<a class="btn ghost small" style="display:inline-flex;align-items:center;text-decoration:none" href="https://high-vibrancy-living.mn.co/">Join the membership</a></div></div>';
+
+    results.innerHTML = html;
+    document.getElementById("copy").addEventListener("click", function (e) { copyReading(data, e.currentTarget); });
+  }
+
+  function copyReading(d, btn) {
+    const lines = [];
+    lines.push("Creative Homeopathy reading: " + d.theme_title, "", d.theme_summary, "");
+    (d.remedies || []).forEach(function (r, i) {
+      lines.push((i + 1) + ". " + (r.name ? r.name + " – " : "") + (r.pattern || ""));
+      lines.push("   " + r.plain);
+      if (r.body_areas && r.body_areas.length) lines.push("   Body areas: " + r.body_areas.join(", "));
+      lines.push("   Reflect: " + r.reflection, "");
+    });
+    lines.push("Questions to sit with:");
+    (d.questions || []).forEach(function (q) { lines.push("- " + q); });
+    lines.push("", "Suggested routine: " + d.routine, "", "Next step: " + d.next_step);
+    lines.push("", "For education and reflection only. Not medical advice. frequencytoolkit.com");
+    const text = lines.join("\n");
+    try {
+      navigator.clipboard.writeText(text).then(function () { btn.textContent = "Copied"; }, function () { btn.textContent = "Couldn't copy"; });
+    } catch (e) { btn.textContent = "Couldn't copy"; }
+  }
+
+  function showLoading() {
+    results.innerHTML = '<div class="panel loading" role="status"><span class="chip">Decoding</span>' +
+      '<p class="hint" id="loadmsg">Reading your five results together…</p>' +
+      '<div class="bar" style="width:80%"></div><div class="bar" style="width:95%"></div><div class="bar" style="width:60%"></div></div>';
+  }
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    if (busy) return;
+    err.hidden = true;
+    const items = [];
+    for (let i = 0; i < 5; i++) {
+      const remedy = document.getElementById("rem" + i).value.trim();
+      const pattern = document.getElementById("pat" + i).value.trim();
+      if (remedy || pattern) items.push({ remedy: remedy, pattern: pattern });
+    }
+    if (!items.length) {
+      err.textContent = "Add at least one result: a remedy name, a stress pattern, or both.";
+      err.hidden = false;
+      return;
+    }
+    busy = true; go.disabled = true; go.textContent = "Decoding…";
+    showLoading();
+    try {
+      const resp = await fetch("/api/decode", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items: items, context: ctx.value.trim(), audience: audience })
+      });
+      const payload = await resp.json().catch(function () { return {}; });
+      if (!resp.ok) { const e2 = new Error(payload.error || "request_failed"); e2.code = payload.code || resp.status; throw e2; }
+      const data = payload;
+      (data.remedies || []).forEach(function (r, i) {
+        if (items[i]) { r.name = r.name || items[i].remedy; r.pattern = r.pattern || items[i].pattern; }
+      });
+      render(data, false);
+    } catch (ex) {
+      const code = ex && ex.code;
+      err.textContent = (code === "rate_limited" || code === 429) ? "Too many readings in a short time. Wait a minute, then try again."
+        : code === "bad_input" ? (ex.message || "Check your results and try again.")
+        : "Something went wrong getting your reading. Try again in a moment.";
+      err.hidden = false;
+      render(EXAMPLE_RESULT, true);
+    } finally {
+      busy = false; go.disabled = false; setAudience(audience);
+    }
+  });
+
+  render(EXAMPLE_RESULT, true);
+
+})();
+</script>
+</body>
+</html>
