@@ -3,172 +3,211 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Creative Homeopathy Decoder</title>
+<title>Creative Homeopathy · High Vibrancy Living</title>
+<link rel="icon" href="hvl-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap">
 <style>
+/* ============================================
+   HIGH VIBRANCY LIVING — Frequency Tool Suite
+   Creative Homeopathy: orchid → coral → apricot
+============================================ */
 :root {
-  /* High Vibrancy Living palette, taken from frequencytoolkit.com */
-  --bg: #FBF7EF;
+  --bg: #FFF9F7;            /* warm white */
   --surface: #FFFFFF;
-  --ink: #2B2733;
-  --muted: #6B6573;
-  --violet: #6B5BD6;
-  --violet-ink: #4A3DB0;
-  --soft: #EFEAFA;
-  --mid: #DCD3F5;
-  --border: #EDE4D2;
-  --deep: #2D2750;
-  --warn: #8A4B12;
-  --display: "Cormorant Garamond", Georgia, serif;
-  --body: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
-  /* Layout: form on the left, the decoded reading on the right; one column on phones */
+  --ink: #493453;           /* deep plum */
+  --muted: #7A6680;
+  --orchid: #B78AE5;
+  --coral: #E9A0BA;
+  --apricot: #F4C78B;
+  --accent-ink: #7B4FB3;    /* orchid, dark enough for text */
+  --tint: #F7EEFB;          /* orchid wash */
+  --tint-warm: #FDF0E6;     /* apricot wash */
+  --border: #F0E2EA;
+  --grad: linear-gradient(115deg, #B78AE5 0%, #E9A0BA 55%, #F4C78B 100%);
+  --grad-soft: linear-gradient(115deg, rgba(183,138,229,0.16), rgba(233,160,186,0.16), rgba(244,199,139,0.18));
+  --shadow: 0 10px 30px rgba(73,52,83,0.08);
+  --display: "Fraunces", Georgia, serif;
+  --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Layout: gradient header card, then a white body with the form beside the reading */
   color-scheme: light;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
-a { color: var(--violet-ink); }
-a:hover { color: var(--violet); }
-:focus-visible { outline: 2px solid var(--violet); outline-offset: 2px; border-radius: 6px; }
+a { color: var(--accent-ink); }
+a:hover { color: var(--ink); }
+:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 2px; border-radius: 6px; }
 
-.wrap { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
-header.top { padding: 28px 0 0; }
-.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
-.brand img { width: 44px; height: 44px; object-fit: contain; }
-.brand span { font-size: 12px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--muted); }
+.shell { max-width: 1120px; margin: 32px auto 0; padding: 0 16px; }
+.card-shell { background: var(--surface); border-radius: 28px; overflow: hidden; box-shadow: var(--shadow); }
 
-.hero { padding: 40px 0 28px; max-width: 720px; }
-.kicker { margin: 0; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--violet-ink); }
-h1 { margin: 10px 0 0; font-family: var(--display); font-weight: 500; font-size: clamp(2.4rem, 5vw, 3.4rem); line-height: 1.05; text-wrap: balance; }
-h1 em { color: var(--violet-ink); }
-.hero p { margin: 14px 0 0; color: var(--muted); font-size: 17px; max-width: 60ch; }
+/* Header: same structure as the other tools */
+.header { background: var(--grad); padding: 52px 56px 48px; position: relative; overflow: hidden; }
+.header::after { content: ""; position: absolute; right: -80px; top: -80px; width: 360px; height: 360px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.45); box-shadow: 0 0 0 40px rgba(255,255,255,0.08), 0 0 0 80px rgba(255,255,255,0.06); pointer-events: none; }
+.header .kicker { margin: 0; font-family: var(--display); font-weight: 400; font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: #3E2B47; }
+.header h1 { margin: 14px 0 0; font-family: var(--display); font-weight: 500; font-size: clamp(2.6rem, 6vw, 4.2rem); line-height: 1.02; letter-spacing: -0.5px; color: var(--ink); text-wrap: balance; position: relative; }
+.header .lead { margin: 18px 0 0; max-width: 60ch; font-size: 18px; line-height: 1.6; color: #3E2B47; position: relative; }
+.header .credibility { margin: 14px 0 0; font-size: 14px; font-style: italic; color: #3E2B47; position: relative; }
 
-.grid { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; padding-bottom: 72px; }
-.panel { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 26px; }
-form.panel { flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 18px; }
-.results { flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.body { padding: 32px 40px 44px; }
+.meta { display: flex; flex-wrap: wrap; gap: 10px 24px; justify-content: space-between; align-items: flex-end; margin-bottom: 26px; }
+.meta .label { margin: 0; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-ink); }
+.meta .value { margin: 4px 0 0; font-family: var(--display); font-size: 1.35rem; font-weight: 500; }
+.meta .side { margin: 0; font-size: 14px; color: var(--muted); }
 
-h2 { margin: 0; font-family: var(--display); font-weight: 500; font-size: 1.7rem; line-height: 1.15; text-wrap: balance; }
+.grid { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: 22px; padding: 26px; }
+form.panel { flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 18px; }
+.results { flex: 999 1 500px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+
+h2 { margin: 0; font-family: var(--display); font-weight: 500; font-size: 1.75rem; line-height: 1.15; text-wrap: balance; }
 .hint { margin: 0; font-size: 14px; color: var(--muted); }
 fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
 legend { padding: 0; margin-bottom: 6px; font-weight: 600; font-size: 14px; }
 .row { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; align-items: start; }
-.num { width: 28px; height: 28px; border-radius: 14px; background: var(--soft); color: var(--violet-ink); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; margin-top: 8px; }
+.num { width: 28px; height: 28px; border-radius: 14px; background: var(--grad); color: var(--ink); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; margin-top: 8px; }
 .pair { display: flex; flex-direction: column; gap: 6px; }
 label.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 input[type=text], textarea {
-  width: 100%; font: inherit; font-size: 15px; color: var(--ink); background: var(--bg);
-  border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px;
+  width: 100%; font: inherit; font-size: 15px; color: var(--ink); background: #FFFCFB;
+  border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; transition: border-color .15s, box-shadow .15s;
 }
-input[type=text]::placeholder, textarea::placeholder { color: #8E8796; }
+input[type=text]:focus, textarea:focus { outline: none; border-color: var(--orchid); box-shadow: 0 0 0 3px rgba(183,138,229,0.22); }
+input[type=text]::placeholder, textarea::placeholder { color: #9C8BA2; }
 input.remedy { font-weight: 500; }
 textarea { min-height: 84px; resize: vertical; }
 .lbl { font-weight: 600; font-size: 14px; display: block; margin-bottom: 6px; }
 
-.seg { display: inline-flex; background: var(--soft); border-radius: 999px; padding: 4px; gap: 4px; }
+.seg { display: inline-flex; background: var(--tint); border-radius: 999px; padding: 4px; gap: 4px; }
 .seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink); padding: 8px 16px; min-height: 36px; border-radius: 999px; cursor: pointer; }
-.seg button[aria-pressed="true"] { background: var(--surface); color: var(--violet-ink); font-weight: 600; box-shadow: 0 1px 4px rgba(45,39,80,0.12); }
+.seg button[aria-pressed="true"] { background: var(--grad); color: var(--ink); font-weight: 600; box-shadow: 0 2px 8px rgba(183,138,229,0.3); }
 
 .actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-.btn { font: inherit; font-weight: 500; font-size: 16px; border-radius: 999px; min-height: 48px; padding: 0 24px; cursor: pointer; border: 1px solid var(--violet); }
-.btn.primary { background: var(--violet); color: #FFFFFF; }
-.btn.primary:hover { background: #5A4AC0; }
-.btn.primary[disabled] { opacity: 0.6; cursor: progress; }
-.btn.ghost { background: var(--surface); color: var(--violet-ink); }
+.btn { font: inherit; font-weight: 600; font-size: 16px; border-radius: 999px; min-height: 48px; padding: 0 26px; cursor: pointer; border: 1px solid transparent; transition: transform .15s, box-shadow .15s; }
+.btn.primary { background: var(--grad); color: var(--ink); box-shadow: 0 6px 18px rgba(233,160,186,0.35); }
+.btn.primary:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(183,138,229,0.35); }
+.btn.primary[disabled] { opacity: 0.65; cursor: progress; transform: none; }
+.btn.ghost { background: var(--surface); color: var(--accent-ink); border-color: #DCC7EE; }
+.btn.ghost:hover { background: var(--tint); }
 .btn.small { min-height: 38px; font-size: 14px; padding: 0 16px; }
-.error { margin: 0; color: #9B2C2C; font-size: 14px; }
+.error { margin: 0; color: #A63A5B; font-size: 14px; }
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn.primary:hover { transform: none; } }
 
 .status { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
-.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; letter-spacing: 0.6px; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: var(--soft); color: var(--violet-ink); font-weight: 600; }
-.chip.example { background: #FBEBD9; color: var(--warn); }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; letter-spacing: 0.6px; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: var(--tint); color: var(--accent-ink); font-weight: 600; }
+.chip.example { background: var(--tint-warm); color: #8A4E17; }
 
-.theme { background: var(--deep); color: #FBF7EF; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 10px; }
-.theme .kicker { color: #CFC4F2; }
+.theme { background: var(--ink); color: #FFF9F7; border-radius: 22px; padding: 28px; display: flex; flex-direction: column; gap: 10px; position: relative; overflow: hidden; }
+.theme::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 6px; background: var(--grad); }
+.theme .kicker { margin: 0; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--apricot); }
 .theme h2 { font-size: clamp(1.8rem, 3.4vw, 2.3rem); color: #FFFFFF; }
-.theme p { margin: 0; color: #E4DEF2; font-size: 16px; max-width: 62ch; }
+.theme p { margin: 0; color: #F2E6F0; font-size: 16px; max-width: 62ch; }
 
 .cards { display: flex; flex-direction: column; gap: 12px; }
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px; display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 18px 20px; display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 14px; transition: box-shadow .15s; }
+.card:hover { box-shadow: var(--shadow); }
 .card .num { margin-top: 2px; width: 32px; height: 32px; border-radius: 16px; }
-.card h3 { margin: 0; font-family: var(--display); font-weight: 600; font-size: 1.35rem; line-height: 1.2; }
+.card h3 { margin: 0; font-family: var(--display); font-weight: 500; font-size: 1.4rem; line-height: 1.2; }
 .card .orig { margin: 2px 0 0; font-size: 13px; color: var(--muted); font-style: italic; }
 .card .plain { margin: 8px 0 0; }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-.tag { font-size: 12.5px; padding: 3px 10px; border-radius: 999px; background: var(--soft); color: var(--violet-ink); }
-.tag.none { background: #F4F1EA; color: var(--muted); }
+.tag { font-size: 12.5px; padding: 3px 10px; border-radius: 999px; background: var(--tint); color: var(--accent-ink); }
+.tag.none { background: #F6F0F2; color: var(--muted); }
 .reflect { margin: 10px 0 0; padding-top: 10px; border-top: 1px dashed var(--border); font-size: 15px; }
-.reflect b { color: var(--violet-ink); font-weight: 600; }
-.unsure { margin: 8px 0 0; font-size: 13px; color: var(--warn); }
+.reflect b { color: var(--accent-ink); font-weight: 600; }
+.unsure { margin: 8px 0 0; font-size: 13px; color: #8A4E17; }
 
 .two { display: flex; flex-wrap: wrap; gap: 16px; }
 .two > .panel { flex: 1 1 260px; min-width: 0; padding: 22px; display: flex; flex-direction: column; gap: 10px; }
-.two h2 { font-size: 1.4rem; }
+.two h2 { font-size: 1.45rem; }
 ol.qs { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+ol.qs li::marker { color: var(--accent-ink); font-weight: 600; }
 .panel p { margin: 0; }
-.next { background: var(--soft); border: 0; }
+.next { background: var(--grad-soft); border: 1px solid var(--border); }
 
-.disclaimer { font-size: 13px; color: var(--muted); margin: 0; max-width: 70ch; }
 .loading { display: flex; flex-direction: column; gap: 12px; }
-.bar { height: 14px; border-radius: 8px; background: linear-gradient(90deg, var(--soft), var(--mid), var(--soft)); background-size: 200% 100%; animation: shimmer 1.4s linear infinite; }
+.bar { height: 14px; border-radius: 8px; background: linear-gradient(90deg, #F7EEFB, #F6D9E3, #FCE9D2, #F7EEFB); background-size: 200% 100%; animation: shimmer 1.4s linear infinite; }
 @keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
 @media (prefers-reduced-motion: reduce) { .bar { animation: none; } }
-footer.foot { border-top: 1px solid var(--border); padding: 22px 0 40px; }
+
+.footer { text-align: center; padding: 36px 16px 48px; }
+.footer img { width: 150px; height: auto; display: block; margin: 0 auto 14px; }
+.footer p { margin: 0 auto; max-width: 72ch; font-size: 12.5px; color: var(--muted); }
 [hidden] { display: none !important; }
+
+@media (max-width: 640px) {
+  .shell { margin-top: 12px; padding: 0 10px; }
+  .header { padding: 32px 22px 30px; }
+  .header .lead { font-size: 16px; }
+  .body { padding: 22px 16px 32px; }
+  .panel { padding: 20px; }
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <a class="brand" href="https://frequencytoolkit.com"><img src="hvl-logo.png" alt="High Vibrancy Living"><span>Frequency Tool Suite</span></a>
-  </header>
+<main class="shell">
+  <div class="card-shell">
+    <header class="header">
+      <p class="kicker">High Vibrancy Living</p>
+      <h1>Creative Homeopathy</h1>
+      <p class="lead">Explore the Creative Homeopathy database in your Healy Resonance app with simple, personalised guidance. Pop in your top 5 results to see the theme that connects them, what each one means and one sensible next step.</p>
+      <p class="credibility">Built by Abbey Smith, Experienced Frequency Practitioner &amp; Trainer</p>
+    </header>
 
-  <section class="hero">
-    <p class="kicker">Frequency Tool Suite · Creative Homeopathy</p>
-    <h1>Creative Homeopathy <em>Decoder</em></h1>
-    <p>Pop in the top 5 results from your Creative Homeopathy scan. You'll get the theme that connects them, what each one means in plain English, the body areas it's traditionally linked with, and one sensible next step.</p>
-  </section>
-
-  <div class="grid">
-    <form class="panel" id="form" novalidate>
-      <div>
-        <h2>Your scan results</h2>
-        <p class="hint">Add the remedy name, the stress pattern, or both. The stress pattern is the line under each remedy in the Healy app.</p>
-      </div>
-
-      <fieldset id="rows">
-        <legend>Top 5 results</legend>
-      </fieldset>
-
-      <div>
-        <label class="lbl" for="context">What's going on for you right now? <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
-        <textarea id="context" placeholder="e.g. hives that flare around my cycle, feeling stretched thin looking after everyone"></textarea>
-      </div>
-
-      <div>
-        <span class="lbl" id="forlabel">Who is this reading for?</span>
-        <div class="seg" role="group" aria-labelledby="forlabel">
-          <button type="button" id="for-me" aria-pressed="true">Me</button>
-          <button type="button" id="for-client" aria-pressed="false">A client</button>
+    <div class="body">
+      <div class="meta">
+        <div>
+          <p class="label">Frequency Tool Suite</p>
+          <p class="value">Creative Homeopathy Decoder</p>
         </div>
+        <p class="side">For reflection, not diagnosis</p>
       </div>
 
-      <div class="actions">
-        <button class="btn primary" type="submit" id="go">Decode my results</button>
-        <button class="btn ghost small" type="button" id="clear">Clear</button>
-      </div>
-      <p class="error" id="err" hidden></p>
-      <p class="hint">Please don't include names or anything that could identify you or a client.</p>
-    </form>
+      <div class="grid">
+        <form class="panel" id="form" novalidate>
+          <div>
+            <h2>Your scan results</h2>
+            <p class="hint">Add the remedy name, the stress pattern, or both. The stress pattern is the line under each remedy in the Healy app.</p>
+          </div>
 
-    <section class="results" id="results" aria-live="polite">
-      <!-- filled by script -->
-    </section>
+          <fieldset id="rows">
+            <legend>Top 5 results</legend>
+          </fieldset>
+
+          <div>
+            <label class="lbl" for="context">What's going on for you right now? <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+            <textarea id="context" placeholder="e.g. hives that flare around my cycle, feeling stretched thin looking after everyone"></textarea>
+          </div>
+
+          <div>
+            <span class="lbl" id="forlabel">Who is this reading for?</span>
+            <div class="seg" role="group" aria-labelledby="forlabel">
+              <button type="button" id="for-me" aria-pressed="true">Me</button>
+              <button type="button" id="for-client" aria-pressed="false">A client</button>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn primary" type="submit" id="go">Decode my results</button>
+            <button class="btn ghost small" type="button" id="clear">Clear</button>
+          </div>
+          <p class="error" id="err" hidden></p>
+          <p class="hint">Please don't include names or anything that could identify you or a client.</p>
+        </form>
+
+        <section class="results" id="results" aria-live="polite">
+          <!-- filled by script -->
+        </section>
+      </div>
+    </div>
   </div>
+</main>
 
-  <footer class="foot">
-    <p class="disclaimer">This tool is for education and personal reflection within the Healy framework. It doesn't diagnose, treat, cure or prevent any medical condition, and isn't a substitute for professional care. Readings are generated by AI and can be wrong. Healy is a trademark of its owner; this tool is independent and not affiliated with Healy World. © 2026 High Vibrancy Living.</p>
-  </footer>
-</div>
+<footer class="footer">
+  <img src="hvl-wordmark.png" alt="High Vibrancy Living">
+  <p>This tool is for education and personal reflection within the Healy framework. It doesn't diagnose, treat, cure or prevent any medical condition, and isn't a substitute for professional care. Readings are generated by AI and can be wrong. Healy and Healy World are trademarks of their respective owner; this tool is independent and not affiliated with or endorsed by Healy World. © 2026 High Vibrancy Living.</p>
+</footer>
 
 <script>
 (function () {
