@@ -93,8 +93,59 @@ function shape(data, items) {
   };
 }
 
+
+// ---------- High Vibrancy Living membership: login + shared credits ----------
+// Same pattern as the other Frequency Tool Suite tools. Turned on when SUPABASE_URL is set.
+const TOOL_NAME = "creative-homeopathy";
+const membersOn = () => Boolean(process.env.SUPABASE_URL);
+
+async function verifyMember(req) {
+  const authorization = req.headers.authorization || "";
+  if (!authorization.startsWith("Bearer ")) return null;
+  const token = authorization.slice(7).trim();
+  if (!token) return null;
+  const r = await fetch(`${process.env.SUPABASE_URL}/auth/v1/user`, {
+    headers: { apikey: process.env.SUPABASE_PUBLISHABLE_KEY, Authorization: `Bearer ${token}` },
+  });
+  if (!r.ok) return null;
+  const user = await r.json();
+  if (!user?.id || !user?.email) return null;
+  return { id: user.id, email: user.email };
+}
+
+async function supabaseRpc(name, body) {
+  return fetch(`${process.env.SUPABASE_URL}/rest/v1/rpc/${name}`, {
+    method: "POST",
+    headers: {
+      apikey: process.env.SUPABASE_SECRET_KEY,
+      Authorization: `Bearer ${process.env.SUPABASE_SECRET_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+}
+
+async function reserveCredit(userId) {
+  const r = await supabaseRpc("reserve_tool_credit", { p_user_id: userId, p_tool_name: TOOL_NAME });
+  if (!r.ok) throw new Error("Could not check credits");
+  const result = await r.json();
+  if (!result || result.success !== true || !result.usage_id) return { success: false };
+  return { success: true, usageId: result.usage_id, creditsRemaining: result.credits_remaining };
+}
+
+async function refundCredit(userId, usageId) {
+  const r = await supabaseRpc("refund_tool_credit", { p_user_id: userId, p_usage_id: usageId });
+  if (!r.ok) throw new Error("Credit refund request failed");
+  if ((await r.json()) !== true) throw new Error("Credit refund was not confirmed");
+}
+
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
+  // Allow requests from the Lovable site
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  if (req.method === "OPTIONS") return res.status(200).end();
 
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -105,7 +156,21 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "The server isn't set up yet (missing API key).", code: "not_configured" });
   }
 
-  const ip = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim() || "unknown";
+  // Members only, once the membership settings are in place
+  let member = null;
+  if (membersOn()) {
+    try {
+      member = await verifyMember(req);
+    } catch (e) {
+      console.error("Supabase authentication error:", e);
+      return res.status(503).json({ error: "Login verification is temporarily unavailable. Please try again.", code: "auth_unavailable" });
+    }
+    if (!member) {
+      return res.status(401).json({ error: "Please log in to your High Vibrancy Living account to use this tool.", code: "login_required" });
+    }
+  }
+
+  const ip = member ? `member:${member.id}` : (String(req.headers["x-forwarded-for"] || "").split(",")[0].trim() || "unknown");
   if (rateLimited(ip)) {
     return res.status(429).json({ error: "Too many readings in a short time.", code: "rate_limited" });
   }
@@ -128,6 +193,34 @@ export default async function handler(req, res) {
   const context = clean(body.context, MAX_CONTEXT);
   const audience = body.audience === "client" ? "client" : "me";
 
+  // Reserve one credit before generating a reading
+  let usageId = null;
+  let creditsRemaining = null;
+  if (member) {
+    try {
+      const credit = await reserveCredit(member.id);
+      if (!credit.success) {
+        return res.status(402).json({ error: "You have no credits remaining. Please upgrade your membership or wait for your next credit refill.", code: "no_credits" });
+      }
+      usageId = credit.usageId;
+      creditsRemaining = credit.creditsRemaining;
+    } catch (e) {
+      console.error("Credit reservation error:", e);
+      return res.status(503).json({ error: "We could not check your credits. Please try again.", code: "credits_unavailable" });
+    }
+  }
+
+  const refund = async () => {
+    if (!member || usageId === null) return;
+    try {
+      await refundCredit(member.id, usageId);
+      usageId = null;
+      console.log("Creative Homeopathy credit refunded");
+    } catch (e) {
+      console.error("IMPORTANT: Creative Homeopathy credit refund failed:", e.message, "Usage ID:", usageId);
+    }
+  };
+
   try {
     const r = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -144,20 +237,25 @@ export default async function handler(req, res) {
     });
 
     if (r.status === 429) {
+      await refund();
       return res.status(429).json({ error: "The AI is busy right now.", code: "rate_limited" });
     }
     if (!r.ok) {
       const detail = await r.text().catch(() => "");
       console.error("Anthropic API error", r.status, detail.slice(0, 500));
+      await refund();
       return res.status(502).json({ error: "The AI service returned an error.", code: "upstream_error" });
     }
 
     const out = await r.json();
     const text = (out.content || []).filter((c) => c.type === "text").map((c) => c.text).join("");
     const data = shape(parseJSON(text), items);
+    if (!data.theme_title || !data.remedies.length) throw new Error("Incomplete reading");
+    if (creditsRemaining !== null) data.creditsRemaining = creditsRemaining;
     return res.status(200).json(data);
   } catch (err) {
     console.error("Decode failed", err);
+    await refund();
     return res.status(500).json({ error: "Something went wrong getting your reading.", code: "server_error" });
   }
 }
