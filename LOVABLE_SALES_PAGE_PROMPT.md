@@ -1,14 +1,14 @@
-Add a new digital product: **Creative Homeopathy Made Simple** (a 17-page PDF guide).
+Add a new digital product: **Creative Homeopathy Made Simple** (a 17-page PDF guide + a bonus video masterclass).
 
 Set it up exactly the same way as the existing **Vibe Guide**: a sales page, a Stripe checkout, an orders table and automatic delivery after payment. Copy the Vibe Guide's flow, page layout, design system and fulfilment logic. Do not change the Vibe Guide or any other existing product, tool, credits, Stripe setup, authentication or membership permissions.
 
 ## 1. Product, checkout and delivery (mirror the Vibe Guide)
-- Stripe product: "Creative Homeopathy Made Simple", one-off payment of **7 USD**.
+- Stripe product: "Creative Homeopathy Made Simple", one-off payment of **7 USD**. On the page, always show the usual price crossed out next to it: ~~$14~~ **$7** ("Usually $14", "Save 50% today"). Stripe only charges $7.
 - Sales page route: `/creative-homeopathy-guide`. Checkout route: `/creative-homeopathy-checkout` (same pattern as `/vibe-checkout`).
 - Orders table: `creative_homeopathy_orders`, with the same columns, policies and fulfilment logic as `vibe_guide_orders` (Stripe session id, payment intent id, email, environment, status, fulfilment attempts, lease, last error, fulfilled at, timestamps).
-- Delivery: after a successful payment, send the buyer their download the same way the Vibe Guide is delivered. The file is the uploaded PDF **Creative-Homeopathy-Made-Simple.pdf**. Show a thank-you page with a download button as well.
+- Delivery: after a successful payment, send the buyer their download the same way the Vibe Guide is delivered (including how the Vibe Guide delivers its bonus video training). The file is the uploaded PDF **Creative-Homeopathy-Made-Simple.pdf**, and the bonus is the video masterclass at **[MASTERCLASS VIDEO LINK]**. Put both in the delivery email and on the thank-you page: a "Download your guide" button and a "Watch your bonus masterclass" button.
 - Track the purchase in `marketing_events` the same way as the Vibe Guide (product: "creative-homeopathy-guide").
-- Add the guide to the "Go deeper" section on the homepage and to the Guides menu, with the card text: "$7 · PDF guide + printables", title "Creative Homeopathy Made Simple", description "Finally understand your Creative Homeopathy scan results: diagrams, step-by-step scanning, AI decoding and two printables."
+- Add the guide to the "Go deeper" section on the homepage and to the Guides menu, with the card text: "~~$14~~ $7 · PDF guide + bonus video masterclass", title "Creative Homeopathy Made Simple", description "Finally understand your Creative Homeopathy scan results: diagrams, step-by-step scanning, AI decoding and two printables."
 
 ## 2. Sales page `/creative-homeopathy-guide`
 Use the same layout, fonts, colours, buttons and spacing as the Vibe Guide page. Every "buy" button goes to `/creative-homeopathy-checkout`. Use the uploaded images where noted.
@@ -18,7 +18,7 @@ Use the same layout, fonts, colours, buttons and spacing as the Vibe Guide page.
 - H1: Creative Homeopathy, *made simple.* (italic part in the brand violet)
 - H2: Ran a Creative Homeopathy scan… and have no idea what your results actually mean?
 - Paragraphs: "You're not the only one. 348 remedies, five names you've never heard of, and a stress pattern that sounds like a riddle." / "This guide explains the database in plain English, with clear diagrams, so you can read your results, link them to what's going on in your body and your life, and know what to do next."
-- Button: "Yes, I want the guide". Small text beside it: "17-page digital guide + printables · Today: $7 USD"
+- Button: "Yes, I want the guide". Small text beside it: "17-page guide + bonus video masterclass · Today: ~~$14~~ $7 USD" (the $14 crossed out)
 
 **Section: why I made it** (image: `ch-page-stress.png`)
 - H2: Honestly? It's one of the most powerful databases on the Healy… and the most *overlooked.*
@@ -28,7 +28,7 @@ Use the same layout, fonts, colours, buttons and spacing as the Vibe Guide page.
 - Secondary button: "Give me the simple version"
 
 **Section: What exactly is it?** (centred card)
-"A 17-page digital guide to the Creative Homeopathy database, with diagrams, a step-by-step scan walkthrough, the Creative Homeopathy tool, ready-made AI prompts and two printables. It's the guide I wish I'd had the first time I ran this scan."
+"A 17-page digital guide to the Creative Homeopathy database, with diagrams, a step-by-step scan walkthrough, the Creative Homeopathy tool, ready-made AI prompts and two printables. Plus a bonus video masterclass where I walk you through a real scan and show you how to use the tools. It's the guide I wish I'd had the first time I ran this scan."
 
 **Section: Inside the guide** (6 cards, then 3 page images in a row: `ch-page-resonance.png`, `ch-page-results.png`, `ch-page-quickref.png`)
 1. The plain-English overview: What Creative Homeopathy is, where it comes from, and why your symptoms can be read as messages.
@@ -63,19 +63,20 @@ No testimonials section for now (it will be added once there are reviews of this
 **Offer section** (same style as the Vibe Guide's "Your special offer")
 - Kicker: YOUR SPECIAL OFFER
 - H2: Get Creative Homeopathy *Made Simple* today
-- Ticks: The full 17-page digital guide / Clear diagrams of the energy layers, stress and resonance / Works with the Creative Homeopathy tool, plus copy-and-paste AI prompts / Printable Quick Reference Card and Scan Journal
-- Price card: "17-page guide + printables", "$7 USD", button "I want the guide for $7", and "Questions first? Email Info@highvibrancyliving.com"
+- Ticks: The full 17-page digital guide / Clear diagrams of the energy layers, stress and resonance / Works with the Creative Homeopathy tool, plus copy-and-paste AI prompts / Printable Quick Reference Card and Scan Journal / **Bonus:** a video masterclass with me, with a live demo of scanning and using the tools (use a small play icon for this one)
+- Price card: logo, "17-page guide + printables + bonus video masterclass", then "Usually ~~$14~~" in muted grey beside a large "$7", a small apricot pill "Save 50% today", button "I want the guide for $7", and "Questions first? Email Info@highvibrancyliving.com"
 
 **FAQ**
 - Do I need to know homeopathy? Not at all. The guide starts from zero and keeps everything in plain English.
 - Is this an official Healy guide? No. It's my own independent guide, not official Healy World training or material.
 - How does the Creative Homeopathy tool work? It's part of the Frequency Tool Suite on frequencytoolkit.com. Create a free account, enter your top 5 results and get a full reading. Each reading uses one Tool Suite credit. You don't need the tool to use the guide: page 12 also gives you prompts for your own AI.
 - Which Healy app do I need? The Creative Homeopathy database in the Healy resonance app.
-- How do I get it? Straight away. It's a PDF you can read on your phone, tablet or computer, or print at home.
+- How do I get it? Straight away. You'll get the PDF to read on your phone, tablet or computer (or print at home), plus the link to your bonus video masterclass.
+- What's in the bonus masterclass? A video with me explaining the database and showing a live demo: running a Creative Homeopathy scan, reading the results, and using the tools to decode them. Watch it once and the guide will make even more sense.
 
 **Final call to action**
 - H2: Stop staring at remedy names and *hoping for the best.*
-- "You already have the database. Get the 17-page guide and printables for $7 today."
+- "You already have the database. Get the 17-page guide, printables and bonus video masterclass for $7 today (usually $14)."
 - Button: "Yes, Abbey, send me the guide"
 
 Footer and legal notes: same as the Vibe Guide page.
