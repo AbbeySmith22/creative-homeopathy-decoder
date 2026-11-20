@@ -6,7 +6,6 @@ This prompt has two parts. Build both. Do not change any existing tool, product,
 - `ch-page-stress.png`, `ch-page-resonance.png`, `ch-page-results.png`, `ch-page-quickref.png`, `ch-page-scan.png` — page previews for the sales page
 
 **Links**
-- Bonus masterclass video: [MASTERCLASS VIDEO LINK]
 - Creative Homeopathy API (already live): `https://creative-homeopathy-decoder.vercel.app/api/decode`
 
 # PART 1 — The Creative Homeopathy tool page
@@ -95,7 +94,7 @@ Set it up exactly the same way as the existing **Vibe Guide**: a sales page, a S
 - Stripe product: "Creative Homeopathy Made Simple", one-off payment of **7 USD**. On the page, always show the usual price crossed out next to it: ~~$14~~ **$7** ("Usually $14", "50% off · Limited time only"). Stripe only charges $7.
 - Sales page route: `/creative-homeopathy-guide`. Checkout route: `/creative-homeopathy-checkout` (same pattern as `/vibe-checkout`).
 - Orders table: `creative_homeopathy_orders`, with the same columns, policies and fulfilment logic as `vibe_guide_orders` (Stripe session id, payment intent id, email, environment, status, fulfilment attempts, lease, last error, fulfilled at, timestamps).
-- Delivery: after a successful payment, send the buyer their download the same way the Vibe Guide is delivered (including how the Vibe Guide delivers its bonus video training). The file is the uploaded PDF **Creative-Homeopathy-Made-Simple.pdf**, and the bonus is the video masterclass at **[MASTERCLASS VIDEO LINK]**. Put both in the delivery email and on the thank-you page: a "Download your guide" button and a "Watch your bonus masterclass" button.
+- Delivery: after a successful payment, send the buyer their download the same way the Vibe Guide is delivered. The file is the uploaded PDF **Creative-Homeopathy-Made-Simple.pdf**. Put a "Download your guide" button in the delivery email and on the thank-you page. The bonus video masterclass is NOT part of this delivery yet: Abbey will send it to buyers by email later. Instead, add one line to the delivery email and thank-you page: "Your bonus video masterclass will arrive in a separate email."
 - Track the purchase in `marketing_events` the same way as the Vibe Guide (product: "creative-homeopathy-guide").
 - Add the guide to the "Go deeper" section on the homepage and to the Guides menu, with the card text: "~~$14~~ $7 · PDF guide + bonus video masterclass", title "Creative Homeopathy Made Simple", description "Finally understand your Creative Homeopathy scan results: diagrams, step-by-step scanning, AI decoding and two printables."
 
@@ -159,8 +158,7 @@ No testimonials section for now (it will be added once there are reviews of this
 - Do I need to know homeopathy? Not at all. The guide starts from zero and keeps everything in plain English.
 - Is this an official Healy guide? No. It's my own independent guide, not official Healy World training or material.
 - How does the Creative Homeopathy tool work? It's part of the Frequency Tool Suite on frequencytoolkit.com. Create a free account, enter your top 5 results and get a full reading. Each reading uses one Tool Suite credit. You don't need the tool to use the guide: page 12 also gives you prompts for your own AI.
-- Which Healy app do I need? The Creative Homeopathy database in the Healy resonance app.
-- How do I get it? Straight away. You'll get the PDF to read on your phone, tablet or computer (or print at home), plus the link to your bonus video masterclass.
+- How do I get it? Straight away. You'll get the PDF straight away to read on your phone, tablet or computer (or print at home). Your bonus video masterclass follows by email.
 - What's in the bonus masterclass? A video with me explaining the database and showing a live demo: running a Creative Homeopathy scan, reading the results, and using the tools to decode them. Watch it once and the guide will make even more sense.
 
 **Final call to action**
