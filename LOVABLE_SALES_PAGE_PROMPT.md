@@ -52,7 +52,11 @@ Use the same layout, fonts, colours, buttons and spacing as the Vibe Guide page.
 - You'd love to link a physical issue to what's going on emotionally
 - You scan clients and want to explain results in a way that clicks
 
-**Section: What people are saying**: use the same testimonial component as the Vibe Guide page. Leave it hidden until real quotes are added for this guide. Keep the note: "These are individual customer experiences. They do not guarantee that everybody will have the same experience or results."
+**Section: What people say about learning with Abbey**: use the same testimonial component as the Vibe Guide page, with these three quotes:
+- "What you said about Creative Homeopathy and ChatGPT makes so much sense… This is going to be a wonderful tool." — Karen · weekly healing class
+- "It's amazing to learn about frequency tools in a way that's tailored to me and my needs. So much has shifted for me and I've had several deep and important insights." — Helena Swate · after 1:1 sessions
+- "I find you to be absolutely amazing!!! And I am SO GLAD that I've benefited this past year in so much of what you've facilitated… Thank you; thank you; thank you!!!" — Arlene Hill · after a year working together
+Keep the note underneath: "These are individual customer experiences. They do not guarantee that everybody will have the same experience or results."
 
 **Section: What this is, and what it is not**
 "A simple, educational way to understand the Creative Homeopathy database and reflect on your results."
