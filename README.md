@@ -8,6 +8,7 @@ Enter the top 5 results from a Healy Creative Homeopathy scan and get a plain-En
 
 - `index.html` – the page (no build step, no dependencies).
 - `api/decode.js` – a Vercel serverless function that sends the results to the Anthropic API and returns the reading as JSON. Your API key stays on the server.
+- `api/decode-iching.js` – the I Ching Decoder endpoint (`POST /api/decode-iching`). Same login and shared credits as `/api/decode` (tool name `i-ching`). The Lovable page for it is described in `LOVABLE_ICHING_PROMPT.md`.
 
 ## Deploy on Vercel
 
