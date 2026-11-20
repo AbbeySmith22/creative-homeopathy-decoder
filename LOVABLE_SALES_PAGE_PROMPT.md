@@ -3,7 +3,7 @@ Add a new digital product: **Creative Homeopathy Made Simple** (a 17-page PDF gu
 Set it up exactly the same way as the existing **Vibe Guide**: a sales page, a Stripe checkout, an orders table and automatic delivery after payment. Copy the Vibe Guide's flow, page layout, design system and fulfilment logic. Do not change the Vibe Guide or any other existing product, tool, credits, Stripe setup, authentication or membership permissions.
 
 ## 1. Product, checkout and delivery (mirror the Vibe Guide)
-- Stripe product: "Creative Homeopathy Made Simple", one-off payment of **7 USD**. On the page, always show the usual price crossed out next to it: ~~$14~~ **$7** ("Usually $14", "Save 50% today"). Stripe only charges $7.
+- Stripe product: "Creative Homeopathy Made Simple", one-off payment of **7 USD**. On the page, always show the usual price crossed out next to it: ~~$14~~ **$7** ("Usually $14", "50% off · Limited time only"). Stripe only charges $7.
 - Sales page route: `/creative-homeopathy-guide`. Checkout route: `/creative-homeopathy-checkout` (same pattern as `/vibe-checkout`).
 - Orders table: `creative_homeopathy_orders`, with the same columns, policies and fulfilment logic as `vibe_guide_orders` (Stripe session id, payment intent id, email, environment, status, fulfilment attempts, lease, last error, fulfilled at, timestamps).
 - Delivery: after a successful payment, send the buyer their download the same way the Vibe Guide is delivered (including how the Vibe Guide delivers its bonus video training). The file is the uploaded PDF **Creative-Homeopathy-Made-Simple.pdf**, and the bonus is the video masterclass at **[MASTERCLASS VIDEO LINK]**. Put both in the delivery email and on the thank-you page: a "Download your guide" button and a "Watch your bonus masterclass" button.
@@ -18,7 +18,7 @@ Use the same layout, fonts, colours, buttons and spacing as the Vibe Guide page.
 - H1: Creative Homeopathy, *made simple.* (italic part in the brand violet)
 - H2: Ran a Creative Homeopathy scan… and have no idea what your results actually mean?
 - Paragraphs: "You're not the only one. 348 remedies, five names you've never heard of, and a stress pattern that sounds like a riddle." / "This guide explains the database in plain English, with clear diagrams, so you can read your results, link them to what's going on in your body and your life, and know what to do next."
-- Button: "Yes, I want the guide". Small text beside it: "17-page guide + bonus video masterclass · Today: ~~$14~~ $7 USD" (the $14 crossed out)
+- Button: "Yes, I want the guide". Small text beside it: "17-page guide + bonus video masterclass · ~~$14~~ $7 USD · 50% off for a limited time" (the $14 crossed out)
 
 **Section: why I made it** (image: `ch-page-stress.png`)
 - H2: Honestly? It's one of the most powerful databases on the Healy… and the most *overlooked.*
@@ -61,10 +61,10 @@ No testimonials section for now (it will be added once there are reviews of this
 - It does not replace the official instructions, professional healthcare or your own common sense.
 
 **Offer section** (same style as the Vibe Guide's "Your special offer")
-- Kicker: YOUR SPECIAL OFFER
+- Kicker: LIMITED-TIME OFFER · 50% OFF
 - H2: Get Creative Homeopathy *Made Simple* today
 - Ticks: The full 17-page digital guide / Clear diagrams of the energy layers, stress and resonance / Works with the Creative Homeopathy tool, plus copy-and-paste AI prompts / Printable Quick Reference Card and Scan Journal / **Bonus:** a video masterclass with me, with a live demo of scanning and using the tools (use a small play icon for this one)
-- Price card: logo, "17-page guide + printables + bonus video masterclass", then "Usually ~~$14~~" in muted grey beside a large "$7", a small apricot pill "Save 50% today", button "I want the guide for $7", and "Questions first? Email Info@highvibrancyliving.com"
+- Price card: logo, "17-page guide + printables + bonus video masterclass", then "Usually ~~$14~~" in muted grey beside a large "$7", a small apricot pill "50% off · Limited time only", button "I want the guide for $7", and "Questions first? Email Info@highvibrancyliving.com"
 
 **FAQ**
 - Do I need to know homeopathy? Not at all. The guide starts from zero and keeps everything in plain English.
