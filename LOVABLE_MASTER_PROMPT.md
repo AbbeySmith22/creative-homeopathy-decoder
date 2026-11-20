@@ -158,7 +158,7 @@ No testimonials section for now (it will be added once there are reviews of this
 - Do I need to know homeopathy? Not at all. The guide starts from zero and keeps everything in plain English.
 - Is this an official Healy guide? No. It's my own independent guide, not official Healy World training or material.
 - How does the Creative Homeopathy tool work? It's part of the Frequency Tool Suite on frequencytoolkit.com. Create a free account, enter your top 5 results and get a full reading. Each reading uses one Tool Suite credit. You don't need the tool to use the guide: page 12 also gives you prompts for your own AI.
-- How do I get it? Straight away. You'll get the PDF straight away to read on your phone, tablet or computer (or print at home). Your bonus video masterclass follows by email.
+- How do I get it? Straight away. You'll get the PDF to read on your phone, tablet or computer (or print at home). Your bonus video masterclass follows by email.
 - What's in the bonus masterclass? A video with me explaining the database and showing a live demo: running a Creative Homeopathy scan, reading the results, and using the tools to decode them. Watch it once and the guide will make even more sense.
 
 **Final call to action**
