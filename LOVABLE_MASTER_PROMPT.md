@@ -99,6 +99,7 @@ Set it up exactly the same way as the existing **Vibe Guide**: a sales page, a S
 - Add the guide to the "Go deeper" section on the homepage and to the Guides menu, with the card text: "~~$14~~ $7 · PDF guide + bonus video masterclass", title "Creative Homeopathy Made Simple", description "Finally understand your Creative Homeopathy scan results: diagrams, step-by-step scanning, AI decoding and two printables."
 
 ## 2b. Sales page `/creative-homeopathy-guide`
+If the visitor is logged in as a VIP member (lifetime or monthly, the same check the Library uses for "vip" collections), change every buy button on this page to "Open it in Frequency Guides" linking to the guide in the Library (Part 4), and hide the price. Everyone else sees the normal page.
 Use the same layout, fonts, colours, buttons and spacing as the Vibe Guide page. Every "buy" button goes to `/creative-homeopathy-checkout`. Use the uploaded images where noted.
 
 **Hero** (image: `ch-hero.png`)
@@ -152,13 +153,14 @@ No testimonials section for now (it will be added once there are reviews of this
 - Kicker: LIMITED-TIME OFFER · 50% OFF
 - H2: Get Creative Homeopathy *Made Simple* today
 - Ticks: The full 17-page digital guide / Clear diagrams of the energy layers, stress and resonance / Works with the Creative Homeopathy tool, plus copy-and-paste AI prompts / Printable Quick Reference Card and Scan Journal / **Bonus:** a video masterclass with me, with a live demo of scanning and using the tools (use a small play icon for this one)
-- Price card: logo, "17-page guide + printables + bonus video masterclass", then "Usually ~~$14~~" in muted grey beside a large "$7", a small apricot pill "50% off · Limited time only", button "I want the guide for $7", and "Questions first? Email Info@highvibrancyliving.com"
+- Price card: logo, "17-page guide + printables + bonus video masterclass", then "Usually ~~$14~~" in muted grey beside a large "$7", a small apricot pill "50% off · Limited time only", a soft lavender note "**Already a member?** It's included free in your Library under **Frequency Guides**.", button "I want the guide for $7", and "Questions first? Email Info@highvibrancyliving.com"
 
 **FAQ**
 - Do I need to know homeopathy? Not at all. The guide starts from zero and keeps everything in plain English.
 - Is this an official Healy guide? No. It's my own independent guide, not official Healy World training or material.
 - How does the Creative Homeopathy tool work? It's part of the Frequency Tool Suite on frequencytoolkit.com. Create a free account, enter your top 5 results and get a full reading. Each reading uses one Tool Suite credit. You don't need the tool to use the guide: page 12 also gives you prompts for your own AI.
 - How do I get it? Straight away. You'll get the PDF to read on your phone, tablet or computer (or print at home). Your bonus video masterclass follows by email.
+- I'm a High Vibrancy Living member. Do I need to buy it? No. Members get this guide, and every future guide, free in the Library under Frequency Guides. You can also use the Creative Homeopathy tool with your monthly Tool Suite credits.
 - What's in the bonus masterclass? A video with me explaining the database and showing a live demo: running a Creative Homeopathy scan, reading the results, and using the tools to decode them. Watch it once and the guide will make even more sense.
 
 **Final call to action**
@@ -172,3 +174,16 @@ Footer and legal notes: same as the Vibe Guide page.
 - On the tool page (Part 1), add a small line under the form card: "New to Creative Homeopathy? Get the guide: Creative Homeopathy Made Simple" linking to `/creative-homeopathy-guide`.
 - On the thank-you page after buying the guide (Part 2), add a third button: "Try the Creative Homeopathy tool" linking to the tool page.
 - Add both to the site navigation: the tool under Tools, the guide under Guides.
+
+# PART 4 — "Frequency Guides" in the Library
+Add a new section to the Community & Learning Library called **Frequency Guides**, for downloadable guides. Place it right after "High Vibrancy Living" and before "The Healy Sanctum", and style it like the other Library sections (same cards, badge colours and icons; use a book or download icon and the "lavender" badge colour).
+
+- Section intro: "Your guides and downloads. Members get every guide free, including new ones as they're released."
+- Create a table `library_guides` with: id, slug, title, description, cover_image, file_path (the PDF), price_label, sales_page_path, tool_path (optional), access_level ('vip'), display_order, is_published, created_at, updated_at. Admins can add, edit and publish guides from the existing admin area, the same way Library collections are managed.
+- Store the PDFs privately and give downloads through short-lived signed links, so only people with access can download them. Use the same storage approach as the Vibe Guide's PDF if it already has one.
+- Access: VIP members (lifetime or monthly) can open and download every published guide. Anyone who bought a guide (a paid order in that guide's orders table for their email) can download that guide too. Everyone else sees the guide card with a lock, the text "Included with membership", a "Join the membership" button and a "Buy this guide" button linking to its sales page.
+- Each guide card shows: cover image, title, description, a "Download PDF" button, and, when tool_path is set, a "Open the tool" button.
+- Add these two guides:
+  1. **Creative Homeopathy Made Simple**: cover `ch-hero.png`; file `Creative-Homeopathy-Made-Simple.pdf`; description "Finally understand your Creative Homeopathy scan results: diagrams, step-by-step scanning, AI decoding and two printables."; sales page `/creative-homeopathy-guide`; tool: the Creative Homeopathy tool page from Part 1. Under the card, add the note "Your bonus video masterclass is coming soon." (Abbey will add the video later.)
+  2. **The Vibe Guide**: use its existing cover artwork, PDF and sales page `/vibe-guide`; description "Every vibration time and program explained in plain language, so you stop second-guessing which one to run."
+- On the dashboard's "Community & Learning Library" card, mention guides: "Your video library, guides, challenges, masterclasses and events."
