@@ -3,12 +3,12 @@ Add a new digital product: **Creative Homeopathy Made Simple** (a 17-page PDF gu
 Set it up exactly the same way as the existing **Vibe Guide**: a sales page, a Stripe checkout, an orders table and automatic delivery after payment. Copy the Vibe Guide's flow, page layout, design system and fulfilment logic. Do not change the Vibe Guide or any other existing product, tool, credits, Stripe setup, authentication or membership permissions.
 
 ## 1. Product, checkout and delivery (mirror the Vibe Guide)
-- Stripe product: "Creative Homeopathy Made Simple", one-off payment of **[PRICE] USD**.
+- Stripe product: "Creative Homeopathy Made Simple", one-off payment of **7 USD**.
 - Sales page route: `/creative-homeopathy-guide`. Checkout route: `/creative-homeopathy-checkout` (same pattern as `/vibe-checkout`).
 - Orders table: `creative_homeopathy_orders`, with the same columns, policies and fulfilment logic as `vibe_guide_orders` (Stripe session id, payment intent id, email, environment, status, fulfilment attempts, lease, last error, fulfilled at, timestamps).
 - Delivery: after a successful payment, send the buyer their download the same way the Vibe Guide is delivered. The file is the uploaded PDF **Creative-Homeopathy-Made-Simple.pdf**. Show a thank-you page with a download button as well.
 - Track the purchase in `marketing_events` the same way as the Vibe Guide (product: "creative-homeopathy-guide").
-- Add the guide to the "Go deeper" section on the homepage and to the Guides menu, with the card text: "$[PRICE] · PDF guide + printables", title "Creative Homeopathy Made Simple", description "Finally understand your Creative Homeopathy scan results: diagrams, step-by-step scanning, AI decoding and two printables."
+- Add the guide to the "Go deeper" section on the homepage and to the Guides menu, with the card text: "$7 · PDF guide + printables", title "Creative Homeopathy Made Simple", description "Finally understand your Creative Homeopathy scan results: diagrams, step-by-step scanning, AI decoding and two printables."
 
 ## 2. Sales page `/creative-homeopathy-guide`
 Use the same layout, fonts, colours, buttons and spacing as the Vibe Guide page. Every "buy" button goes to `/creative-homeopathy-checkout`. Use the uploaded images where noted.
@@ -18,7 +18,7 @@ Use the same layout, fonts, colours, buttons and spacing as the Vibe Guide page.
 - H1: Creative Homeopathy, *made simple.* (italic part in the brand violet)
 - H2: Ran a Creative Homeopathy scan… and have no idea what your results actually mean?
 - Paragraphs: "You're not the only one. 348 remedies, five names you've never heard of, and a stress pattern that sounds like a riddle." / "This guide explains the database in plain English, with clear diagrams, so you can read your results, link them to what's going on in your body and your life, and know what to do next."
-- Button: "Yes, I want the guide". Small text beside it: "17-page digital guide + printables · Today: $[PRICE] USD"
+- Button: "Yes, I want the guide". Small text beside it: "17-page digital guide + printables · Today: $7 USD"
 
 **Section: why I made it** (image: `ch-page-stress.png`)
 - H2: Honestly? It's one of the most powerful databases on the Healy… and the most *overlooked.*
@@ -44,7 +44,7 @@ Use the same layout, fonts, colours, buttons and spacing as the Vibe Guide page.
 - "The guide teaches you how to read your results. The tool does the decoding for you. Pop in your top 5 and get one clear reading, written in plain English."
 - Ticks: The theme that connects all five results / What each remedy means, and the body areas it's traditionally linked with / Reflection questions, a vibration routine and a sensible next step / A "for a client" mode for practitioners
 - Button "Try the tool for free" → the Creative Homeopathy tool page. Small text: "Create a free account at frequencytoolkit.com"
-- On the right, a small preview card of a reading: gradient header "Creative Homeopathy", a deep plum theme card "Giving outward, holding back inward", and a remedy card "Bromium — Keeping busy helping others so you don't have to look at your own pain." with pills Skin / Glands and thyroid / Respiratory, then "+ 4 more results, reflection questions and your routine".
+- On the right, a small preview card of a reading: gradient header "Creative Homeopathy"; a deep plum theme card with the kicker "THE THEME THAT CONNECTS THEM", the title "Carrying everything while feeling unseen" and the small text "Taken together, these results may point to a season where you feel cut off from the closeness you want, while pushing on and putting your own needs last."; a remedy card "1 · Staphisagria – Feeling isolated, inner ties to others cut off" with "You may feel alone even when people are nearby, as if the warm connection you want has been cut." and pills Urinary system / Skin / Genital organs; then "+ 4 more results, reflection questions and your routine".
 
 **Section: This guide is for you if…** (image: `ch-page-scan.png`)
 - You've run Creative Homeopathy but don't know what to do with the results
@@ -52,11 +52,7 @@ Use the same layout, fonts, colours, buttons and spacing as the Vibe Guide page.
 - You'd love to link a physical issue to what's going on emotionally
 - You scan clients and want to explain results in a way that clicks
 
-**Section: What people say about learning with Abbey**: use the same testimonial component as the Vibe Guide page, with these three quotes:
-- "What you said about Creative Homeopathy and ChatGPT makes so much sense… This is going to be a wonderful tool." — Karen · weekly healing class
-- "It's amazing to learn about frequency tools in a way that's tailored to me and my needs. So much has shifted for me and I've had several deep and important insights." — Helena Swate · after 1:1 sessions
-- "I find you to be absolutely amazing!!! And I am SO GLAD that I've benefited this past year in so much of what you've facilitated… Thank you; thank you; thank you!!!" — Arlene Hill · after a year working together
-Keep the note underneath: "These are individual customer experiences. They do not guarantee that everybody will have the same experience or results."
+No testimonials section for now (it will be added once there are reviews of this guide).
 
 **Section: What this is, and what it is not**
 "A simple, educational way to understand the Creative Homeopathy database and reflect on your results."
@@ -68,7 +64,7 @@ Keep the note underneath: "These are individual customer experiences. They do no
 - Kicker: YOUR SPECIAL OFFER
 - H2: Get Creative Homeopathy *Made Simple* today
 - Ticks: The full 17-page digital guide / Clear diagrams of the energy layers, stress and resonance / Works with the Creative Homeopathy tool, plus copy-and-paste AI prompts / Printable Quick Reference Card and Scan Journal
-- Price card: "17-page guide + printables", "$[PRICE] USD", button "I want the guide for $[PRICE]", and "Questions first? Email Info@highvibrancyliving.com"
+- Price card: "17-page guide + printables", "$7 USD", button "I want the guide for $7", and "Questions first? Email Info@highvibrancyliving.com"
 
 **FAQ**
 - Do I need to know homeopathy? Not at all. The guide starts from zero and keeps everything in plain English.
@@ -79,7 +75,7 @@ Keep the note underneath: "These are individual customer experiences. They do no
 
 **Final call to action**
 - H2: Stop staring at remedy names and *hoping for the best.*
-- "You already have the database. Get the 17-page guide and printables for $[PRICE] today."
+- "You already have the database. Get the 17-page guide and printables for $7 today."
 - Button: "Yes, Abbey, send me the guide"
 
 Footer and legal notes: same as the Vibe Guide page.
